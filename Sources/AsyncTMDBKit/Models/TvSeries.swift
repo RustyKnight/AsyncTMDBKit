@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TvSeries.swift
 //  
 //
 //  Created by Shane Whitehead on 21/6/2022.
@@ -40,6 +40,10 @@ public protocol TvSeries: TvSeriesCore {
 
     var images: ImageMediaGroup { get }
     var externalIds: TvSeriesExternalIds { get }
+}
+
+public protocol TvSeriesDetails: TvSeries {
+    var episodes: [TvSeriesEpisode] { get }
 }
 
 struct DefaultTvSeriesExternalIds: TvSeriesExternalIds, Decodable {
@@ -133,5 +137,59 @@ struct DefaultTvSeries: TvSeries, Decodable {
 
         images = try container.decode(DefaultImageMediaGroup.self, forKey: .images)
         externalIds = try container.decode(DefaultTvSeriesExternalIds.self, forKey: .externalIds)
+    }
+}
+
+struct DefaultTvSeriesDetails: TvSeriesDetails {
+    var episodes: [TvSeriesEpisode]
+    var homepage: String
+    var inProduction: Bool
+    var lastAirDate: String
+    var numberOfEpisodes: Int
+    var numberOfSeasons: Int
+    var status: String
+    var tagline: String
+    var type: String
+    var genres: [Genre]
+    var images: ImageMediaGroup
+    var externalIds: TvSeriesExternalIds
+    var id: Int
+    var name: String
+    var posterPath: String?
+    var popularity: Double
+    var backdropPath: String?
+    var voteAverage: Double
+    var overview: String
+    var firstAirDate: String?
+    var originCountry: [String]?
+    var originalLanguage: String
+    var voteCount: Int
+    var originalName: String
+    
+    init(tvSeries: TvSeries, episodes: [TvSeriesEpisode]) {
+        self.episodes = episodes
+        self.homepage = tvSeries.homepage
+        self.inProduction = tvSeries.inProduction
+        self.lastAirDate = tvSeries.lastAirDate
+        self.numberOfEpisodes = tvSeries.numberOfEpisodes
+        self.numberOfSeasons = tvSeries.numberOfSeasons
+        self.status = tvSeries.status
+        self.tagline = tvSeries.tagline
+        self.type = tvSeries.type
+        self.genres = tvSeries.genres
+        self.images = tvSeries.images
+        self.externalIds = tvSeries.externalIds
+        self.id = tvSeries.id
+        self.name = tvSeries.name
+        self.posterPath = tvSeries.posterPath
+        self.popularity = tvSeries.popularity
+        self.backdropPath = tvSeries.backdropPath
+        self.voteAverage = tvSeries.voteAverage
+        self.overview = tvSeries.overview
+        self.firstAirDate = tvSeries.firstAirDate
+        self.originCountry = tvSeries.originCountry
+        self.originalLanguage = tvSeries.originalLanguage
+        self.voteCount = tvSeries.voteCount
+        self.originalName = tvSeries.originalName
     }
 }

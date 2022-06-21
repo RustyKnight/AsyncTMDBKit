@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TvSeriesSeason.swift
 //  
 //
 //  Created by Shane Whitehead on 21/6/2022.
@@ -11,6 +11,7 @@ public protocol TvSeriesSeason {
     var overview: String { get }
     var posterPath: String? { get }
     var season: Int { get }
+    var episodes: [TvSeriesEpisode] { get }
 }
 
 public protocol TvSeriesEpisode {
@@ -53,8 +54,18 @@ struct DefaultTvSeriesSeason: TvSeriesSeason, Decodable {
         case posterPath = "poster_path"
         case overview
         case season = "season_number"
+        case episodes
     }
     var overview: String
     var posterPath: String?
     var season: Int
+    var episodes: [TvSeriesEpisode]
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        overview = try container.decode(String.self, forKey: .overview)
+        posterPath = try container.decodeIfPresent(String.self, forKey: .posterPath)
+        season = try container.decode(Int.self, forKey: .season)
+        episodes = try container.decode([DefaultTvSeriesEpisode].self, forKey: .episodes)
+    }
 }

@@ -38,22 +38,37 @@ final class AsyncTMDBKitTests: XCTestCase {
     
     func testCanGetMovieDetails() throws {
         run {
-            try await TMDB.shared.movie(byId: 11)
+            _ = try await TMDB.shared.movie(byId: 11)
         }
     }
     
     func testCanGetTvSeriesDetails() throws {
         run {
-            try await TMDB.shared.tvSeries(byId: 92830)
+            let series = try await TMDB.shared.tvSeriesDetails(byId: 92830)
+            log(debug: "Episode count = \(series.episodes.count)")
+            log(debug: "Backdrop = \(String(describing: series.backdropPath))")
+            log(debug: "Poster = \(String(describing: series.posterPath))")
         }
     }
     
     func testCanGetTvSeriesSeason() throws {
         run {
-            try await TMDB.shared.tvSeries(id: 92830, season: 1)
+            _ = try await TMDB.shared.tvSeries(id: 92830, season: 0)
         }
     }
     
+    func testCanGetConfiguration() throws {
+        run {
+            _ = try await TMDB.shared.configuration()
+        }
+    }
+    
+    func testCanGetImage() throws {
+        run {
+            _ = try await TMDB.shared.image(path: "/8H64YmIYxpRJgSTuLUGRUSyi2kN.jpg")
+        }
+    }
+
     func run(_ test: @escaping () async throws -> Void) {
         let stopWatch = StopWatch().start()
         let exp = expectation(description: "Tv series details")

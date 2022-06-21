@@ -1,0 +1,41 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire",
+      "state" : {
+        "branch" : "master",
+        "revision" : "51d67100121d586c9d15ec0227de96442af4dd6d"
+      }
+    },
+    {
+      "identity" : "asyncalamofirehttpenginekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RustyKnight/AsyncAlamofireHttpEngineKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "46157f536b1e42c81ba5dce032b2024b120b4963"
+      }
+    },
+    {
+      "identity" : "asynchttpenginekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RustyKnight/AsyncHttpEngineKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "3102ea62f66326514e794bcf1a4ab560819511a0"
+      }
+    },
+    {
+      "identity" : "cadmus",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RustyKnight/Cadmus",
+      "state" : {
+        "revision" : "f2d1d470016ad4e440517e6208c62fc9e3bc066d",
+        "version" : "3.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}

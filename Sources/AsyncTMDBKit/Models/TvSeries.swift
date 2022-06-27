@@ -30,7 +30,7 @@ public protocol TvSeriesExternalIds {
 public protocol TvSeries: TvSeriesCore {
     var homepage: String { get }
     var inProduction: Bool { get }
-    var lastAirDate: String { get }
+    var lastAirDate: String? { get }
     var numberOfEpisodes: Int { get }
     var numberOfSeasons: Int { get }
     var status: String { get }
@@ -99,7 +99,7 @@ struct DefaultTvSeries: TvSeries, Decodable {
 
     var homepage: String
     var inProduction: Bool
-    var lastAirDate: String
+    var lastAirDate: String?
     var numberOfEpisodes: Int
     var numberOfSeasons: Int
     var status: String
@@ -127,7 +127,7 @@ struct DefaultTvSeries: TvSeries, Decodable {
 
         homepage = try container.decode(String.self, forKey: .homepage)
         inProduction = try container.decode(Bool.self, forKey: .inProduction)
-        lastAirDate = try container.decode(String.self, forKey: .lastAirDate)
+        lastAirDate = try container.decodeIfPresent(String.self, forKey: .lastAirDate)
         numberOfEpisodes = try container.decode(Int.self, forKey: .numberOfEpisodes)
         numberOfSeasons = try container.decode(Int.self, forKey: .numberOfSeasons)
         status = try container.decode(String.self, forKey: .status)
@@ -144,7 +144,7 @@ struct DefaultTvSeriesDetails: TvSeriesDetails {
     var episodes: [TvSeriesEpisode]
     var homepage: String
     var inProduction: Bool
-    var lastAirDate: String
+    var lastAirDate: String?
     var numberOfEpisodes: Int
     var numberOfSeasons: Int
     var status: String

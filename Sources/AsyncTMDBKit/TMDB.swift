@@ -66,7 +66,7 @@ public class TMDB {
 		// Get first page of responses
 		var searchResults = response.results
 		// Are there more pages
-		if response.page != response.totalPages {
+		if response.totalPages > 0 && response.page != response.totalPages {
 			// Simultaneously request all the remaining results
 			return try await withThrowingTaskGroup(of: [MovieSummary].self) { group in
 				for page in 2..<response.totalPages {

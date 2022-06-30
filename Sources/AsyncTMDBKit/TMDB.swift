@@ -137,7 +137,7 @@ public class TMDB {
 		return response
 	}
 	
-	public func movie(byId id: Int) async throws -> Movie {
+	public func movie(byId id: Int) async throws -> MovieDetail {
 		//https://api.themoviedb.org/3/movie/{movie_id}?api_key=b8031409dad8c17a516fc3f8468be7ba&language=en-US
 		return try await requestBuilderFor(.movie(id: id))
 			.appendingResponse(.images)

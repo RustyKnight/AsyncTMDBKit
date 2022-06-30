@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol MovieSummary: CoreMovie {
+public protocol MovieSummary: MovieCore {
     var genreIds: [Int]? { get }
 }
 

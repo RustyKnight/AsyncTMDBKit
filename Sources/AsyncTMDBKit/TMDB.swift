@@ -43,8 +43,8 @@ public class TMDB {
 		return APIRequestBuilder(endPoint, apiKey: apiKey)
 	}
 	
-	public func findTvSeries(byTheTvDBId id: String) async throws -> [TvSeriesSummary] {
-		return try await find(byId: id, source: .tvdb).tvSeries
+	public func findTvSeries(byTheTvDBId id: Int) async throws -> [TvSeriesSummary] {
+		return try await find(byId: "\(id)", source: .tvdb).tvSeries
 	}
 	
 	public func findMovie(byIMDBId id: String) async throws -> [MovieSummary] {

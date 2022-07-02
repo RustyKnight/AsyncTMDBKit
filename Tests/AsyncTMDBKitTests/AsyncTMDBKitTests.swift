@@ -12,7 +12,7 @@ final class AsyncTMDBKitTests: XCTestCase {
 	
 	func testCanFindTv() throws {
 		run {
-			let response = try await TMDB.shared.findTvSeries(byTheTvDBId: "393199")
+			let response = try await TMDB.shared.findTvSeries(byTheTvDBId: 393199)
 			assert(response.count == 1)
 			log(debug: "\(response.first)")
 		}
@@ -44,7 +44,7 @@ final class AsyncTMDBKitTests: XCTestCase {
 	
 	func testCanGetTvSeriesDetails() throws {
 		run {
-			let series = try await TMDB.shared.tvSeriesDetails(byId: 92830)
+			let series = try await TMDB.shared.tvSeriesDetails(byId: 280619)
 			log(debug: "Episode count = \(series.episodes.count)")
 			log(debug: "Backdrop = \(String(describing: series.backdropPath))")
 			log(debug: "Poster = \(String(describing: series.posterPath))")

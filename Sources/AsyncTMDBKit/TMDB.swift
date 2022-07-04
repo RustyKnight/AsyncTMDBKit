@@ -168,13 +168,14 @@ public class TMDB {
 					return try await self.tvSeries(series, season: season)
 				}
 			}
-			var episods = [TvSeriesEpisode]()
+			var seasons = [TvSeriesSeason]()
 			for try await response in group {
 				guard let response = response else { continue }
-				episods.append(contentsOf: response.episodes)
+//				episodes.append(contentsOf: response.episodes)
+				seasons.append(response)
 			}
 			// Return all the combined results
-			return DefaultTvSeriesDetails(tvSeries: series, episodes: episods)
+			return DefaultTvSeriesDetails(tvSeries: series, seasons: seasons)
 		}
 	}
 	

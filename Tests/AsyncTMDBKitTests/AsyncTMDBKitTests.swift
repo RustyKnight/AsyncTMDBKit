@@ -29,7 +29,8 @@ final class AsyncTMDBKitTests: XCTestCase {
 	
 	func testCanSearchTv() throws {
 		run {
-			let results = try await TMDB.shared.searchTvSeries("ms marval")
+			let results = try await TMDB.shared.searchTvSeries("ms marvel")
+			log(debug: "Found \(results.count) matches")
 			for result in results {
 				log(debug: "\(result.id) - \(result.name)")
 			}
@@ -44,8 +45,9 @@ final class AsyncTMDBKitTests: XCTestCase {
 	
 	func testCanGetTvSeriesDetails() throws {
 		run {
-			let series = try await TMDB.shared.tvSeriesDetails(byId: 280619)
+			let series = try await TMDB.shared.tvSeriesDetails(byId: 92782)
 			log(debug: "Episode count = \(series.episodes.count)")
+			log(debug: "Season id = \(series.seasons.first?.id)")
 			log(debug: "Backdrop = \(String(describing: series.backdropPath))")
 			log(debug: "Poster = \(String(describing: series.posterPath))")
 		}

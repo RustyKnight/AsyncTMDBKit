@@ -43,6 +43,7 @@ public protocol TvSeries: TvSeriesCore {
 }
 
 public protocol TvSeriesDetails: TvSeries {
+	var seasons: [TvSeriesSeason] { get }
 	var episodes: [TvSeriesEpisode] { get }
 }
 
@@ -142,6 +143,7 @@ struct DefaultTvSeries: TvSeries, Decodable {
 
 struct DefaultTvSeriesDetails: TvSeriesDetails {
 	var episodes: [TvSeriesEpisode]
+	var seasons: [TvSeriesSeason]
 	var homepage: String
 	var inProduction: Bool
 	var lastAirDate: String?
@@ -166,8 +168,9 @@ struct DefaultTvSeriesDetails: TvSeriesDetails {
 	var voteCount: Int
 	var originalName: String
 	
-	init(tvSeries: TvSeries, episodes: [TvSeriesEpisode]) {
-		self.episodes = episodes
+	init(tvSeries: TvSeries, seasons: [TvSeriesSeason]) {//episodes: [TvSeriesEpisode]) {
+		self.seasons = seasons
+		self.episodes = seasons.flatMap { $0.episodes }
 		self.homepage = tvSeries.homepage
 		self.inProduction = tvSeries.inProduction
 		self.lastAirDate = tvSeries.lastAirDate

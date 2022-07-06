@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol TvSeriesCore: MediaSourcable {
+public protocol TvSeriesCore {
 	var id: Int { get }
 	var name: String { get }
 	var posterPath: String? { get }

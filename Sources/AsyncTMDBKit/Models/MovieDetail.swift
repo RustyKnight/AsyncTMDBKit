@@ -38,7 +38,7 @@ public protocol MovieExternalIds {
 	var twitterId: String? { get }
 }
 
-public protocol MovieCore: MediaSourcable {
+public protocol MovieCore {
 	var posterPath: String? { get }
 	var backdropPath: String? { get }
 	var adultContent: Bool? { get }

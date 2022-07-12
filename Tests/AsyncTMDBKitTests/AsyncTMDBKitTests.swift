@@ -2,6 +2,7 @@ import XCTest
 @testable import AsyncTMDBKit
 import Cadmus
 import AsyncAlamofireHttpEngineKit
+import CoreLib
 
 final class AsyncTMDBKitTests: XCTestCase {
 	
@@ -20,7 +21,11 @@ final class AsyncTMDBKitTests: XCTestCase {
 	
 	func testCanSearchMovie() throws {
 		run {
-			let results = try await TMDB.shared.searchMovie("A new hope")
+			let progress = NormalizedProgress()
+			progress.onChange = { progress in
+				log(debug: "Progress = \(progress.value)")
+			}
+			let results = try await TMDB.shared.searchMovie("Star Wars", progress: progress)
 			for result in results {
 				log(debug: "\(result.id) - \(result.title)")
 			}
@@ -29,7 +34,11 @@ final class AsyncTMDBKitTests: XCTestCase {
 	
 	func testCanSearchTv() throws {
 		run {
-			let results = try await TMDB.shared.searchTvSeries("ms marvel")
+			let progress = NormalizedProgress()
+			progress.onChange = { progress in
+				log(debug: "Progress = \(progress.value)")
+			}
+			let results = try await TMDB.shared.searchTvSeries("doctor who", progress: progress)
 			log(debug: "Found \(results.count) matches")
 			for result in results {
 				log(debug: "\(result.id) - \(result.name)")
@@ -45,8 +54,14 @@ final class AsyncTMDBKitTests: XCTestCase {
 	
 	func testCanGetTvSeriesDetails() throws {
 		run {
-			let series = try await TMDB.shared.tvSeriesDetails(byId: 92782)
+			let progress = NormalizedProgress()
+			progress.onChange = { progress in
+				log(debug: "Progress = \(progress.value)")
+			}
+			//121
+			let series = try await TMDB.shared.tvSeriesDetails(byId: 57243, progress: progress)
 			log(debug: "Episode count = \(series.episodes.count)")
+			log(debug: "numberOfSeasons = \(series.numberOfSeasons)")
 			log(debug: "Season id = \(series.seasons.first?.id)")
 			log(debug: "Backdrop = \(String(describing: series.backdropPath))")
 			log(debug: "Poster = \(String(describing: series.posterPath))")
@@ -67,7 +82,11 @@ final class AsyncTMDBKitTests: XCTestCase {
 	
 	func testCanGetImage() throws {
 		run {
-			_ = try await TMDB.shared.image(path: "/8H64YmIYxpRJgSTuLUGRUSyi2kN.jpg")
+			let progress = NormalizedProgress()
+			progress.onChange = { progress in
+				log(debug: "Progress = \(progress.value)")
+			}
+			_ = try await TMDB.shared.image(path: "/8H64YmIYxpRJgSTuLUGRUSyi2kN.jpg", progress: progress)
 		}
 	}
 	

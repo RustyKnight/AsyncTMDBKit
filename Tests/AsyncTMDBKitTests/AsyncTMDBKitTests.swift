@@ -38,7 +38,7 @@ final class AsyncTMDBKitTests: XCTestCase {
 			progress.onChange = { progress in
 				log(debug: "Progress = \(progress.value)")
 			}
-			let results = try await TMDB.shared.searchTvSeries("doctor who", progress: progress)
+			let results = try await TMDB.shared.searchTvSeries("The Expanse", progress: progress)
 			log(debug: "Found \(results.count) matches")
 			for result in results {
 				log(debug: "\(result.id) - \(result.name)")
@@ -59,7 +59,7 @@ final class AsyncTMDBKitTests: XCTestCase {
 				log(debug: "Progress = \(progress.value)")
 			}
 			//121
-			let series = try await TMDB.shared.tvSeriesDetails(byId: 57243, progress: progress)
+			let series = try await TMDB.shared.tvSeriesDetails(byId: 63639, progress: progress)
 			log(debug: "Episode count = \(series.episodes.count)")
 			log(debug: "numberOfSeasons = \(series.numberOfSeasons)")
 			log(debug: "Season id = \(series.seasons.first?.id)")

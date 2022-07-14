@@ -16,7 +16,7 @@ public protocol TvSeriesSeason {
 }
 
 public protocol TvSeriesEpisode {
-	var airDate: String { get }
+	var airDate: String? { get }
 	var episode: Int { get }
 	var id: Int { get }
 	var name: String { get }
@@ -39,7 +39,7 @@ struct DefaultTvSeriesEpisode: TvSeriesEpisode, Decodable {
 		case voteAverage = "vote_average"
 		case voteCount = "vote_count"
 	}
-	var airDate: String
+	var airDate: String?
 	var episode: Int
 	var id: Int
 	var name: String

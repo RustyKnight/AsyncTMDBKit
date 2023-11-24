@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RustyKnight/Cadmus",
       "state" : {
-        "revision" : "f2d1d470016ad4e440517e6208c62fc9e3bc066d",
-        "version" : "3.0.0"
+        "branch" : "master",
+        "revision" : "f2d1d470016ad4e440517e6208c62fc9e3bc066d"
       }
     },
     {
@@ -42,7 +42,7 @@
       "location" : "https://github.com/RustyKnight/CoreLib",
       "state" : {
         "branch" : "main",
-        "revision" : "b73f613d774c06ae282cee3521d487d780e2c536"
+        "revision" : "2b6338af4b1f64248b04345f46f6ff785a85921f"
       }
     }
   ],

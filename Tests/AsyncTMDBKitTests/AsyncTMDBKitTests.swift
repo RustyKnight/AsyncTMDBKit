@@ -22,9 +22,11 @@ final class AsyncTMDBKitTests: XCTestCase {
 	func testCanSearchMovie() throws {
 		run {
 			let progress = NormalizedProgress()
-			progress.onChange = { progress in
-				log(debug: "Progress = \(progress.value)")
-			}
+            withObservationTracking {
+                let _ = progress.value
+            } onChange: {
+                log(debug: "Progress = \(progress.value)")
+            }
 			let results = try await TMDB.shared.searchMovie("Star Wars", progress: progress)
 			for result in results {
 				log(debug: "\(result.id) - \(result.title)")
@@ -35,9 +37,11 @@ final class AsyncTMDBKitTests: XCTestCase {
 	func testCanSearchTv() throws {
 		run {
 			let progress = NormalizedProgress()
-			progress.onChange = { progress in
-				log(debug: "Progress = \(progress.value)")
-			}
+            withObservationTracking {
+                let _ = progress.value
+            } onChange: {
+                log(debug: "Progress = \(progress.value)")
+            }
 			let results = try await TMDB.shared.searchTvSeries("The Expanse", progress: progress)
 			log(debug: "Found \(results.count) matches")
 			for result in results {
@@ -55,10 +59,11 @@ final class AsyncTMDBKitTests: XCTestCase {
 	func testCanGetTvSeriesDetails() throws {
 		run {
 			let progress = NormalizedProgress()
-			progress.onChange = { progress in
-				log(debug: "Progress = \(progress.value)")
-			}
-			//121
+            withObservationTracking {
+                let _ = progress.value
+            } onChange: {
+                log(debug: "Progress = \(progress.value)")
+            }
 			let series = try await TMDB.shared.tvSeriesDetails(byId: 63639, progress: progress)
 			log(debug: "Episode count = \(series.episodes.count)")
 			log(debug: "numberOfSeasons = \(series.numberOfSeasons)")
@@ -83,9 +88,11 @@ final class AsyncTMDBKitTests: XCTestCase {
 	func testCanGetImage() throws {
 		run {
 			let progress = NormalizedProgress()
-			progress.onChange = { progress in
-				log(debug: "Progress = \(progress.value)")
-			}
+            withObservationTracking {
+                let _ = progress.value
+            } onChange: {
+                log(debug: "Progress = \(progress.value)")
+            }
 			_ = try await TMDB.shared.image(path: "/8H64YmIYxpRJgSTuLUGRUSyi2kN.jpg", progress: progress)
 		}
 	}

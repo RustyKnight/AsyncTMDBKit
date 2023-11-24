@@ -69,7 +69,7 @@ public class TMDB {
 			// Simultaneously request all the remaining results
 			return try await withThrowingTaskGroup(of: [MovieSummary].self) { group in
 				for page in 2..<response.totalPages {
-					let childProgress = progress?.withChildProgress()
+					let childProgress = await progress?.withChildProgress()
 					group.addTask {
 						return try await self.searchMovie(
 							query,
@@ -120,7 +120,7 @@ public class TMDB {
 			// Simultaneously request all the remaining results
 			return try await withThrowingTaskGroup(of: [TvSeriesSummary].self) { group in
 				for page in 2..<response.totalPages {
-					let childProgress = progress?.withChildProgress()
+					let childProgress = await progress?.withChildProgress()
 					group.addTask {
 						return try await self.searchTvSeries(
 							query,
@@ -184,7 +184,7 @@ public class TMDB {
 		
 		return try await withThrowingTaskGroup(of: TvSeriesSeason?.self) { group in
 			for season in 0...series.numberOfSeasons {
-				let childProgress = progress?.withChildProgress()
+				let childProgress = await progress?.withChildProgress()
 				group.addTask {
 					return try await self.tvSeries(series, season: season, progress: childProgress)
 				}

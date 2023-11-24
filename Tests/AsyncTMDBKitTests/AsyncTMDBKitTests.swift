@@ -3,8 +3,11 @@ import XCTest
 import Cadmus
 import AsyncAlamofireHttpEngineKit
 import CoreLib
+import Combine
 
 final class AsyncTMDBKitTests: XCTestCase {
+    
+    var callBack: AnyCancellable?
 	
 	override func setUp() async throws {
 		TMDB.apiKey = Secrets.apiKey
@@ -22,9 +25,8 @@ final class AsyncTMDBKitTests: XCTestCase {
 	func testCanSearchMovie() throws {
 		run {
 			let progress = NormalizedProgress()
-            withObservationTracking {
-                let _ = progress.value
-            } onChange: {
+            self.callBack = progress.objectWillChange.sink { [weak self] Void in
+                guard self != nil else { return }
                 log(debug: "Progress = \(progress.value)")
             }
 			let results = try await TMDB.shared.searchMovie("Star Wars", progress: progress)
@@ -37,9 +39,8 @@ final class AsyncTMDBKitTests: XCTestCase {
 	func testCanSearchTv() throws {
 		run {
 			let progress = NormalizedProgress()
-            withObservationTracking {
-                let _ = progress.value
-            } onChange: {
+            self.callBack = progress.objectWillChange.sink { [weak self] Void in
+                guard self != nil else { return }
                 log(debug: "Progress = \(progress.value)")
             }
 			let results = try await TMDB.shared.searchTvSeries("The Expanse", progress: progress)
@@ -59,9 +60,8 @@ final class AsyncTMDBKitTests: XCTestCase {
 	func testCanGetTvSeriesDetails() throws {
 		run {
 			let progress = NormalizedProgress()
-            withObservationTracking {
-                let _ = progress.value
-            } onChange: {
+            self.callBack = progress.objectWillChange.sink { [weak self] Void in
+                guard self != nil else { return }
                 log(debug: "Progress = \(progress.value)")
             }
 			let series = try await TMDB.shared.tvSeriesDetails(byId: 63639, progress: progress)
@@ -88,9 +88,8 @@ final class AsyncTMDBKitTests: XCTestCase {
 	func testCanGetImage() throws {
 		run {
 			let progress = NormalizedProgress()
-            withObservationTracking {
-                let _ = progress.value
-            } onChange: {
+            self.callBack = progress.objectWillChange.sink { [weak self] Void in
+                guard self != nil else { return }
                 log(debug: "Progress = \(progress.value)")
             }
 			_ = try await TMDB.shared.image(path: "/8H64YmIYxpRJgSTuLUGRUSyi2kN.jpg", progress: progress)

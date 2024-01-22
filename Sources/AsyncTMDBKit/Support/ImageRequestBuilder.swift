@@ -1,6 +1,6 @@
 //
 //  ImageRequestBuilder.swift
-//  
+//
 //
 //  Created by Shane Whitehead on 22/6/2022.
 //
@@ -15,22 +15,22 @@ class ImageRequestBuilder: TMDBRequestBuilder {
     }
     
     init(
-			_ configuration: Configuration,
-			path: String,
-			size: String = "original",
-			progress: NormalizedProgress? = nil
-		) throws {
+        _ configuration: Configuration,
+        path: String,
+        size: String = "original",
+        progress: NormalizedProgress? = nil
+    ) throws {
         guard let baseUrl = URL(string: configuration.images.secureBaseUrl) else { throw Error.invalidBaseURL(configuration.images.secureBaseUrl) }
         let targetURL = baseUrl
             .appendingPathComponent(size)
             .appendingPathComponent(path)
         super.init(
-					to: targetURL
-				)
-			
-			with { progressValue in
-				progress?.value = progressValue
-			}
+            to: targetURL
+        )
+        
+        with { progressValue in
+            progress?.value = progressValue
+        }
     }
 }
 

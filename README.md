@@ -8,7 +8,7 @@ This is primaryly a learning process for using `async`/`await`
 
 Currently supports:
 
-* Find by external id
+* Find by external id ([API](https://developer.themoviedb.org/reference/find-by-id)) (`https://api.themoviedb.org/3/find/{external_id}`)
 * Seach movies (`https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&page=1&include_adult=false`) (paginated and unpaginated)
 * Search TV (`https://api.themoviedb.org/3/search/tv?api_key=b8031409dad8c17a516fc3f8468be7ba&language=en-US&page=1&include_adult=false`) (paginated and unpaginated)
 * Movie details (by id) (`https://api.themoviedb.org/3/movie/{movie_id}?api_key=b8031409dad8c17a516fc3f8468be7ba&language=en-US`)

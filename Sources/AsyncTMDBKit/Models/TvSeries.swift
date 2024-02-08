@@ -42,9 +42,16 @@ public protocol TvSeries: TvSeriesCore {
 	var externalIds: TvSeriesExternalIds { get }
 }
 
+public protocol TvSeriesSeasonContainer {
+    var episodes: [TvSeriesEpisode] { get }
+    func episode(_ episode: Int) -> TvSeriesEpisode?
+}
+
 public protocol TvSeriesDetails: TvSeries {
 	var seasons: [TvSeriesSeason] { get }
 	var episodes: [TvSeriesEpisode] { get }
+    
+    func season(_ season: Int) -> TvSeriesSeasonContainer?
 }
 
 struct DefaultTvSeriesExternalIds: TvSeriesExternalIds, Decodable {
@@ -141,6 +148,18 @@ struct DefaultTvSeries: TvSeries, Decodable {
 	}
 }
 
+struct DefaultTvSeriesSeasonContainer: TvSeriesSeasonContainer {
+    var episodes: [TvSeriesEpisode]
+    
+    init(episodes: [TvSeriesEpisode]) {
+        self.episodes = episodes
+    }
+    
+    func episode(_ episode: Int) -> TvSeriesEpisode? {
+        episodes.first { $0.episode == episode }
+    }
+}
+
 struct DefaultTvSeriesDetails: TvSeriesDetails {
 	var episodes: [TvSeriesEpisode]
 	var seasons: [TvSeriesSeason]
@@ -195,4 +214,9 @@ struct DefaultTvSeriesDetails: TvSeriesDetails {
 		self.voteCount = tvSeries.voteCount
 		self.originalName = tvSeries.originalName
 	}
+    
+    func season(_ season: Int) -> TvSeriesSeasonContainer? {
+        guard let season = seasons.first(where: { $0.season == season } ) else { return nil }
+        return DefaultTvSeriesSeasonContainer(episodes: season.episodes)
+    }
 }

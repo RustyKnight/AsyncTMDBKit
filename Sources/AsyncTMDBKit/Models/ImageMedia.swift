@@ -45,7 +45,7 @@ struct DefaultImageMedia: ImageMedia, Decodable {
         filePath = try container.decode(String.self, forKey: .filePath)
         height = try container.decode(Int.self, forKey: .height)
         voteAverage = try container.decode(Double.self, forKey: .voteAverage)
-        voteCount = try container.decode(Int.self, forKey: .voteCount)
+        voteCount = try container.decodeIfPresent(Int.self, forKey: .voteCount) ?? 0
         width = try container.decode(Int.self, forKey: .width)
     }
 }

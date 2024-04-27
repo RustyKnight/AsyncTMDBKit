@@ -98,7 +98,7 @@ public class TMDB {
         defer {
             progress?.completed()
         }
-        let response = try await requestBuilderFor(.searchMovie)
+        let data = try await requestBuilderFor(.searchMovie)
             .with(.query(query.replacingOccurrences(of: " ", with: "+")))
             .with(.year(year))
             .with(.primaryReleaseYear(primaryReleaseYear))
@@ -106,9 +106,14 @@ public class TMDB {
             .build()
             .get()
             .requestSuccessWithDataOrFail()
-            //.debug()
-            .decodeTo(DefaultSearchMovieResponse.self)
-        return response
+
+        do {
+            return try data.decodeTo(DefaultSearchMovieResponse.self)
+        } catch {
+            log(error: "Failed to decode:\n\(data.debug())")
+            log(error: error)
+            throw error
+        }
     }
     
     public func searchTvSeries(_ query: String, firstAirYear: Int? = nil, progress: NormalizedProgress? = nil) async throws -> [TvSeriesSummary] {

@@ -35,7 +35,25 @@ final class AsyncTMDBKitTests: XCTestCase {
 			}
 		}
 	}
-	
+
+    func testCanSearchMoviesAndDetails() throws {
+        run {
+            let progress = NormalizedProgress()
+            self.callBack = progress.objectWillChange.sink { [weak self] Void in
+                guard self != nil else { return }
+                log(debug: "Progress = \(progress.value)")
+            }
+            let results = try await TMDB.shared.searchMovie("Star Wars", progress: progress)
+            for result in results {
+                log(debug: "\(result.id) - \(result.title)")
+            }
+
+            for result in results {
+                _ = try await TMDB.shared.movie(byId: result.id)
+            }
+        }
+    }
+
 	func testCanSearchTv() throws {
 		run {
 			let progress = NormalizedProgress()

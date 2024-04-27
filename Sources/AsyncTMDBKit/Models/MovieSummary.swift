@@ -56,7 +56,7 @@ struct DefaultMovieSummary: MovieSummary, Decodable {
         originalTitle = try container.decodeIfPresent(String.self, forKey: .originalTitle)
         originalLanguage = try container.decodeIfPresent(String.self, forKey: .originalLanguage)
         backdropPath = try container.decodeIfPresent(String.self, forKey: .backdropPath)
-        popularity = try container.decode(Double.self, forKey: .popularity)
+        popularity = try container.decodeIfPresent(Double.self, forKey: .popularity) ?? 0.0
         voteCount = try container.decode(Int.self, forKey: .voteCount)
         video = try container.decode(Bool.self, forKey: .video)
         voteAverage = try container.decode(Double.self, forKey: .voteAverage)

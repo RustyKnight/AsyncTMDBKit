@@ -106,6 +106,7 @@ public class TMDB {
             .build()
             .get()
             .requestSuccessWithDataOrFail()
+            //.debug()
             .decodeTo(DefaultSearchMovieResponse.self)
         return response
     }
